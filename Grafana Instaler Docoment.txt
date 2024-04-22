@@ -1,0 +1,224 @@
+https://www.linode.com/docs/guides/how-to-install-prometheus-and-grafana-on-ubuntu/
+https://ourcodeworld.com/articles/read/1686/how-to-install-prometheus-node-exporter-on-ubuntu-2004#:~:text=How%20to%20install%20Prometheus%20Node%20Exporter%20on%20Ubuntu,5%205.%20Test%20the%20Node%20Exporter%20service%20
+wget https://github.com/prometheus/prometheus/releases/download/v2.37.6/prometheus-2.37.6.linux-amd64.tar.gz
+tar xvfz prometheus-*.tar.gz
+sudo mkdir /etc/prometheus /var/lib/prometheus
+sudo vi /etc/prometheus/prometheus.yml
+...
+- job_name: "remote_collector"
+  scrape_interval: 10s
+  static_configs:
+    - targets: ['192.168.18.128:9100','192.168.88.129:9100']
+
+
+grafana dasbord id 1860
+https://objects.githubusercontent.com/github-production-release-asset-2e65be/66566232/01b16006-8233-4c37-993e-ffd368a2e08a?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20231009%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231009T085406Z&X-Amz-Expires=300&X-Amz-Signature=3a70881669b5c87ea20a90e20908ecba1219991c4a949db3de053199b569d9da&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=66566232&response-content-disposition=attachment%3B%20filename%3Dwindows_exporter-0.24.0-amd64.exe&response-content-type=application%2Foctet-stream
+window expoter 
+port 9182
+Alart manajar
+https://developer.couchbase.com/tutorial-configure-alertmanager
+
+https://computingforgeeks.com/configure-prometheus-email-alert-notification-using-alertmanager/
+
+
+
+Graphana installation steps -
+
+root
+
+Password - 0)4'NkbN,B6
+
+1) sudo wget -q -O /usr/share/keyrings/grafana.key https://packages.grafana.com/gpg.key
+
+2) echo "deb [signed-by=/usr/share/keyrings/grafana.key] https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+
+3) sudo apt update
+
+4) sudo apt install grafa
+
+
+
+
+Graphana installation steps -
+
+root
+
+Password - 0)4'NkbN,B6
+
+1) sudo wget -q -O /usr/share/keyrings/grafana.key https://packages.grafana.com/gpg.key
+
+2) echo "deb [signed-by=/usr/share/keyrings/grafana.key] https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+
+3) sudo apt update
+
+4) sudo apt install grafana
+
+5) sudo systemctl enable grafana-server --now
+
+6) sudo systemctl status grafana-server
+
+****) Prometheus - 
+user - root
+Paasport - 4Jd3dWc@h"Q
+
+Nord expoter - https://devopscube.com/monitor-linux-servers-prometheus-node-exporter/
+
+wget https://github.com/prometheus/node_exporter/releases/download/v1.3.1/node_exporter-1.3.1.linux-amd64.tar.gz
+
+tar xvf node_exporter-1.3.1.linux-amd64.tar.gz
+
+cd node_exporter-1.3.1.linux-amd64
+
+sudo cp node_exporter /usr/local/bin
+
+cd
+
+rm -rf ./node_exporter-1.3.1.linux-amd64
+
+sudo useradd -rs /bin/false node_exporter
+
+sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
+
+sudo nano /etc/systemd/system/node_exporter.service
+
+[Unit]
+Description=Node Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=node_exporter
+Group=node_exporter
+Type=simple
+ExecStart=/usr/local/bin/node_exporter
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+
+# 
+sudo systemctl daemon-reload
+
+sudo systemctl enable node_exporter
+
+sudo systemctl start node_exporter
+
+sudo systemctl status node_exporter
+
+Prometheus -
+
+Add server of Prometheus -
+sudo nano /etc/prometheus/prometheus.yml
+
+add last line -
+
+- job_name: "grafana"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["192.168.2.140:9100"]
+
+and save it
+
+sudo systemctl enable prometheus
+
+sudo systemctl restart prometheus
+
+sudo systemctl status prometheus
+
+production:
+  email_delivery:
+    delivery_method: :smtp    
+    smtp_settings:
+      address: "smtp.gmail.com"
+      port: 587
+      authentication: :plain
+      user_name: "volza.alert@gmail.com"
+      password: "dwzawbbnvskmpzwc"
+
+https://linuxhint.com/install-configure-prometheus-alert-manager-ubuntu/
+
+Install Alertmanager -
+
+1) wget https://github.com/prometheus/alertmanager/releases/download/v0.22.2/alertmanager-0.22.2.linux-amd64.tar.gz
+
+2) tar xzf alertmanager-0.22.2.linux-amd64.tar.gz
+
+3) sudo mv -v alertmanager-0.22.2.linux-amd64 /opt/alertmanager
+
+4) sudo useradd -M -r -s /bin/false alertmanager
+
+5) sudo chown -Rfv alertmanager:alertmanager /opt/alertmanager
+
+6) sudo mkdir -v /opt/alertmanager/data
+
+7) sudo nano /etc/systemd/system/alertmanager.service
+
+8) [Unit]
+Description=Alertmanager for prometheus
+
+[Service]
+Restart=always
+User=prometheus
+ExecStart=/opt/alertmanager/alertmanager --config.file=/opt/alertmanager/alertmanager.yml --storage.path=/opt/alertmanager/data            
+ExecReload=/bin/kill -HUP $MAINPID
+TimeoutStopSec=20s
+SendSIGKILL=no
+
+[Install]
+WantedBy=multi-user.target
+
+9) sudo systemctl daemon-reload
+
+10) sudo systemctl enable alertmanager
+
+11) sudo systemctl start alertmanager
+
+12) sudo systemctl status alertmanager
+
+13) sudo nano /opt/alertmanager/alertmanager.yml
+
+14)
+route:
+  group_by: ['alertname']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 5m
+  receiver: 'email'
+receivers:
+- name: 'web.hook'
+  webhook_configs:
+  - url: 'http://127.0.0.1:5001/'
+- name: 'email'
+  email_configs:
+    - to: 'itmonitoring@volza.com'
+      from: 'volza.alert@gmail.com'
+      smarthost: smtp.gmail.com:587
+      auth_username: 'volza.alert@gmail.com'
+      auth_identity: 'volza.alert@gmail.com'
+      auth_password: 'juxzrpcnwcrrmhvv'
+      send_resolved: true
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'dev', 'instance']
+** amtool check-config /opt/alertmanager/alertmanager.yml
+12) sudo nano /etc/prometheus/instancedown.yml
+
+13) 
+group:
+- name: instancedown_rules
+rules:
+      - alert: InstanceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+          annotations:
+          summary: "Instance [{{ $labels.instance }}] down"
+          description: "[{{ $labels.intance }}] of job [{{ $labels.job }}] has been down for more than 1minitue."
