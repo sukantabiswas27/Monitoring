@@ -1,0 +1,11 @@
+groups:
+    - name: CPU_alerts
+      rules:
+      - alert: WindowsServerCpuUsage
+        expr: 100 - (avg by (instance) (rate(windows_cpu_time_total{mode="idle"}[2m])) * 100) > 90
+        for: 0m
+        labels:
+          severity: warning
+          annotations:
+          summary: Windows Server CPU Usage (instance {{ $labels.instance }})
+          description: "CPU Usage is more than 90%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"

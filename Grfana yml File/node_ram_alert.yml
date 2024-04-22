@@ -1,0 +1,11 @@
+groups:
+    - name: RAM_alerts
+      rules:
+      - alert: HighMemoryUtilization
+        expr: node_memory_MemTotal - node_memory_MemFree < 0.9 * node_memory_MemTotal
+        for: 5m
+        labels:
+          severity: warning
+          annotations:
+          summary: High memory utilization on host {{ $labels.instance }}
+          description: The memory utilization on host {{ $labels.instance }} has exceeded 90% for 5 minutes.

@@ -1,0 +1,11 @@
+groups:
+    - name: CPU_alerts
+      rules:
+      - alert: HighCPUUtilization
+        expr: avg(node_cpu{mode="system"}) > 90
+        for: 5m
+        labels:
+          severity: critical
+          annotations:
+          summary: High CPU utilization on host {{ $labels.instance }}
+          description: The CPU utilization on host {{ $labels.instance }} has exceeded 90% for 5 minutes.

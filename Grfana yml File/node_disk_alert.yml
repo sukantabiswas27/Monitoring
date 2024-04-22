@@ -1,0 +1,11 @@
+groups:
+    - name: disk_alerts
+      rules:
+      - alert: LowDiskSpace
+        expr: node_filesystem_free{fstype="ext4"} < 2e9 or node_filesystem_free{fstype="ext3"} < 2e9
+        for: 5m
+        labels:
+          severity: critical
+          annotations:
+          summary: Low disk space on host {{ $labels.instance }}
+          description: The free disk space on host {{ $labels.instance }} has dropped below 2G

@@ -1,0 +1,308 @@
+# my global config
+global:
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ["192.168.112.128:9093"]
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+   - "instancedown.yml"
+   - "node_cpu_alert.yml"
+   - "node_disk_alert.yml"
+   - "node_ram_alert.yml"
+   - "win_cpu_alert.yml"
+   - "win_ram_alert.yml"
+   - "win_disk_alert.yml"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: "prometheus"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  - job_name: "grafana"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["192.168.112.140:9100"]
+
+  - job_name: "Mysql-DB"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["192.168.112.126:9100"]
+
+  - job_name: "Passbolt-App"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["192.168.112.131:9100"]
+
+  - job_name: "Redmine-App"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["192.168.112.133:9100"]
+
+  - job_name: "Translation"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["192.168.112.135:9100"]
+
+  - job_name: "Enrichment-App"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["192.168.112.137:9100"]
+
+  - job_name: "nginx"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["192.168.112.138:9100"]
+
+  - job_name: "Manoj-Bisht"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["192.168.112.134:9182"]
+
+  - job_name: "ETL-Server"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["192.168.112.121:9182"]
+
+  - job_name: "Prometheus-App"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["192.168.112.128:9100"]
+
+  - job_name: "Nikhil-Kumar"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["192.168.112.120:9182"]
+
+  - job_name: "Search-Console"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["192.168.112.129:9100"]
+
+  - job_name: "Google-Ranking"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["192.168.112.139:9100"]
+
+  - job_name: "Bhavana-Raj"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["192.168.112.119:9182"]
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+  - job_name: "Shiva-Kumar"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["192.168.112.118:9182"]
+
+  - job_name: "Konnuplli-ravi"
+
+    metrics_path: '/114/82/metrics'
+    #  scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["production.infodriveindia.com"]
+  - job_name: "manoj-kumar"
+
+    metrics_path: '/110/82/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["production.infodriveindia.com"]
+
+  - job_name: "shubhankar-saha"
+
+    metrics_path: '/111/82/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["production.infodriveindia.com"]
+
+  - job_name: "abhishek-mandal"
+
+    metrics_path: '/112/82/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["production.infodriveindia.com"]
+
+  - job_name: "jayanata-khastagir"
+
+    metrics_path: '/106/82/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["production.infodriveindia.com"]
+
+  - job_name: "manas-dey"
+
+    metrics_path: '/107/82/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["production.infodriveindia.com"]
+
+  - job_name: "arnab-sen"
+
+    metrics_path: '/103/82/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["production.infodriveindia.com"]
+
+  - job_name: "bakia-sultana"
+
+    metrics_path: '/104/82/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["production.infodriveindia.com"]
+
+  - job_name: "indrani-bhattacharjee"
+
+    metrics_path: '/105/82/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["production.infodriveindia.com"]
+
+  - job_name: "pallob-chakraborty"
+
+    metrics_path: '/108/82/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["production.infodriveindia.com"]
+
+  - job_name: "pratik-sen"
+
+    metrics_path: '/109/82/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["production.infodriveindia.com"]
+
+  - job_name: "nabanita-bhowmik"
+
+    metrics_path: '/113/82/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["production.infodriveindia.com"]
+
+  - job_name: "soumitra-das"
+
+    metrics_path: '/115/82/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["production.infodriveindia.com"]
+
+  - job_name: "supratik-basu"
+
+    metrics_path: '/116/82/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["production.infodriveindia.com"]
+
+  - job_name: "tanusree-saha"
+
+    metrics_path: '/117/82/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["production.infodriveindia.com"]
+
+
+  - job_name: "IIPL-nginx"
+
+    metrics_path: '/130/00/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["production.infodriveindia.com"]
+
+  - job_name: "Indexing-Server"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["indexing.infodriveindia.com:9100"]
+
+  - job_name: "Reindexing-Server"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["reindexing.infodriveindia.com:9100"]
+
+  - job_name: "Nextcloud-App"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["192.168.112.132:9100"]
